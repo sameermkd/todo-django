@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container">
-      <form method="post">
+      <form action="" method="post">
         {% csrf_token %}
         <div class="input-group mt-5">
             {{forms.title}}
@@ -20,6 +20,11 @@
       {% for a in todo %}
       <div class="alert alert-success mt-2" role="alert">
         {{a.title}}
+        <form action="{% url 'delete' a.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        <button type="submit" class="btn btn-success">Update</button>
       </div>
       {% endfor %}
     </div>
