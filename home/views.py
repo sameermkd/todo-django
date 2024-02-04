@@ -20,3 +20,15 @@ def delete(request,id):
     if request.method=="POST":
         todo.delete()
         return redirect("home")
+def update(request,id):
+    todo=Todo.objects.get(id=id)
+    form=TodoForms(instance=todo)
+    context={
+        "form":form
+    }
+    if request.method=='POST':
+        form = TodoForms(request.POST, instance=todo)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+    return render(request,"update.html",context)
